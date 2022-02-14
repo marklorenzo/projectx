@@ -1,0 +1,44 @@
+.col-lg-6.col-md-10.col-lg-offset-3.col-md-offset-1.col-sm-8.col-sm-offset-2
+  .login-container
+    .row
+      .col-sm-6.col-xs-12
+        .panel.panel-default
+          .panel-heading
+            %b
+              %i.fa.fa-user.fa-fw
+              Sign in
+          .panel-body
+            = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+              .form-inputs
+                = f.input :username, autofocus: true, label: false, placeholder: "Username", :input_html => { :class => 'input-lg' }
+                = f.input :password, autocomplete: "off", label: false, placeholder: "Password", :input_html => { :class => 'input-lg' }
+                = render "devise/shared/links"
+                / - if devise_mapping.rememberable?
+                /   = f.input :remember_me, as: :boolean
+              .form-actions
+                = f.submit "Log in", :class => "btn btn-lg btn-primary btn-block"
+      .col-sm-6.col-xs-12
+        .form-btns
+          %h5
+            %b
+              = "Quick Links"
+          - if ApplicationPeriod.within_application_period
+            %b= "* NSA Application for Luzon and Region VI will be until December 1, 2018."
+            %br
+            =link_to new_applicant_path, class: "btn btn-success btn-lg btn-block" do
+              %i.fa.fa-file-text.fa-fw
+              Cadet Application Form
+          - else
+            %i="* Cadet application period will start on: " + ApplicationPeriod.start.strftime('%B %d, %Y')
+          %hr
+            %i= "* Online Evaluation currently disabled. Kindly use printed Evaluation Forms provided in your student hand-out"
+          %hr
+          
+          / = link_to verify_passkey_crews_class_schedules_path, method: :get, data: { :remote => "true", "data-toggle" => 'modal', "data-target" => '#verify_passkey_modal' }, class: "btn btn-success btn-lg btn-block" do
+          /   %i.fa.fa-file-text.fa-fw
+          /   = I18n.t('evaluation.evaluation_form')
+          = link_to class_schedule_index_courses_path(year: Date.today.year), class: "btn btn-success btn-lg btn-block" do
+            %i.fa.fa-file-text.fa-fw
+            = I18n.t('walk_in_enrollment')           
+
+.modal#verify_passkey_modal{ tabindex: "-1", role: "dialog", "aria-labelledby": "verify_passkey_modal", "aria-hidden": "true" }

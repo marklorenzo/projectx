@@ -1,0 +1,23 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Hi Member!</h1>
+
+<h3>Profile</h3>
+
+
+  <p>
+    <strong>First name:</strong>
+    <%= @current_user.first_name %>
+  </p>
+
+  <p>
+    <strong>Last name:</strong>
+    <%= @current_user.last_name %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= @current_user.email %>
+  </p>
+<br/><br/>
+<%= button_to "Logout", destroy_user_session_path, method: :delete  %>
